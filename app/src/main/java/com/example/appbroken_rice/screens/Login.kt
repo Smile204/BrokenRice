@@ -96,7 +96,8 @@ fun LoginScreen(navController: NavHostController? = null, viewModel: LoginViewMo
             text = emailState,
             onValueChange = { emailState.value = it },
             placeholder = "Email",
-            img = R.drawable.sms
+            img = R.drawable.sms,
+            type = true
         )
         InputText(
             text = passwordState,

@@ -14,8 +14,8 @@ class RegisterViewModel : ViewModel() {
     var registerResult: ((RegisterResponseModel?) -> Unit)? = null
     var registerError: ((String) -> Unit)? = null
 
-    fun register(name: String, email: String, password: String) {
-        val registerRequest = RegisterRequestModel(name, email, password)
+    fun register(email: String, password: String, name: String) {
+        val registerRequest = RegisterRequestModel(email, password, name)
         viewModelScope.launch {
             retrofitAPI.register(registerRequest) { response ->
                 if (response != null) {
