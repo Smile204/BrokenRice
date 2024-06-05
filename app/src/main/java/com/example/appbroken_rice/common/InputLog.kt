@@ -54,8 +54,8 @@ fun InputText(
             )
         },
         visualTransformation = if (type == true) VisualTransformation.None else PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password
-        )
+//        keyboardOptions = KeyboardOptions(
+//            keyboardType = KeyboardType.Password
+//        )
     )
 }

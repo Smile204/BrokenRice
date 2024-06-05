@@ -104,13 +104,15 @@ fun RegisterScreen(navController: NavHostController? = null, viewModel: Register
             text = nameState,
             onValueChange = { nameState.value = it },
             placeholder = "Your name",
-            img = R.drawable.user_square
+            img = R.drawable.user_square,
+            type = true
         )
         InputText(
             text = emailState,
             onValueChange = { emailState.value = it },
             placeholder = "Email",
-            img = R.drawable.sms
+            img = R.drawable.sms,
+            type = true
         )
         InputText(
             text = passwordState,
