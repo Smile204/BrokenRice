@@ -13,8 +13,7 @@ import retrofit2.http.Query
 
 interface IRetrofit {
     @POST("/users/register")
-    fun register(@Body registerRequestModel: RegisterRequestModel)
-            : Call<RegisterResponseModel>
+    fun register(@Body body: RegisterRequestModel): Call<RegisterResponseModel>
 
     @POST("/users/login")
     fun login(@Body body: LoginRequestModel): Call<LoginResponseModel>

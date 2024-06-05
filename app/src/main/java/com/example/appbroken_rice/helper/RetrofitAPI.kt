@@ -15,10 +15,10 @@ class RetrofitAPI {
     private val api = retrofit.create(IRetrofit::class.java)
 
     fun register(
-        user: RegisterRequestModel,
+        body: RegisterRequestModel,
         callback: (RegisterResponseModel?) -> Unit
     ) {
-        api.register(user).enqueue(object : Callback<RegisterResponseModel> {
+        api.register(body).enqueue(object : Callback<RegisterResponseModel> {
             override fun onResponse(
                 call: Call<RegisterResponseModel>,
                 response: Response<RegisterResponseModel>
