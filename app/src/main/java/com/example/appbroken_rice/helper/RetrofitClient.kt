@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "link API"
+    private const val BASE_URL = "http://192.168.1.171:8888"
     private val okHttpClient = OkHttpClient()
         .newBuilder()
         .addInterceptor(RequestInterceptor)
