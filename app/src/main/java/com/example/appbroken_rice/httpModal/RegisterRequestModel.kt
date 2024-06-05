@@ -1,10 +1,9 @@
-package com.example.appbroken_rice.httpModal
+package com.example.chuyendoicompo.httpmodels
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-//Model gui len server
 data class RegisterRequestModel(
-    @JsonProperty("name") val name:String,
-    @JsonProperty("email") val email:String,
-    @JsonProperty("pass") val pass:String
+    @JsonProperty("email") val email: String,
+    @JsonProperty("password") val password: String,
+    @JsonProperty("name") val name: String,
 )
