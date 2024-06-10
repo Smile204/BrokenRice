@@ -1,5 +1,6 @@
 package com.example.appbroken_rice.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
@@ -138,7 +139,9 @@ fun BottomTab(){
             startDestination = Screens.Home.screen,
             modifier = Modifier.padding(padding)
         ) {
-            composable("Home") { MainHome() }
+            composable("Home") { MainHome(
+                navController = navController
+            ) }
             composable("Favorite") { FavoriteScreen() }
             composable("Address") { AddressScreen() }
             composable("Store") { StoreScreen() }

@@ -30,7 +30,7 @@ fun InputText(
     type: Boolean? = null
 ) {
     TextField(
-        value = text.value, // <-- Corrected line
+        value = text.value,
         onValueChange = onValueChange,
         placeholder = {
             Text(
@@ -53,7 +53,7 @@ fun InputText(
                 modifier = Modifier.size(35.dp)
             )
         },
-        visualTransformation = if (type == true) VisualTransformation.None else PasswordVisualTransformation(),
+//        visualTransformation = if (type == true) VisualTransformation.None else PasswordVisualTransformation(),
 //        keyboardOptions = KeyboardOptions(
 //            keyboardType = KeyboardType.Password
 //        )

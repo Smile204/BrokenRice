@@ -1,5 +1,6 @@
 package com.example.appbroken_rice.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,25 +25,63 @@ import com.example.appbroken_rice.common.InputText
 import com.example.appbroken_rice.common.roboto_bold
 import com.example.appbroken_rice.common.roboto_regular
 import com.example.appbroken_rice.ui.theme.*
+import com.example.myapplication.helper.RetrofitAPI
+import com.example.myapplication.http_model.SignUpRequestModel
+import com.example.myapplication.http_model.SignUpResponseModel
 
 @Composable
-fun RegisterScreen(navController: NavHostController? = null, viewModel: RegisterViewModel = viewModel()) {
-    val context = LocalContext.current
-
+fun RegisterScreen(navController: NavHostController? = null) {
     val nameState = remember { mutableStateOf("") }
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
     val showPasswordState = remember { mutableStateOf(false) }
 
-    viewModel.registerResult = { response ->
-        if (response != null) {
-            // Navigate to Login screen
-            navController?.navigate("Login")
-        }
+    val context = LocalContext.current
+
+    fun signUpCallBack(respponse: SignUpResponseModel?){
+        Toast.makeText(context, "Sign up success", Toast.LENGTH_SHORT).show()
+        navController?.navigate("login")
     }
 
-    viewModel.registerError = { error ->
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+    fun onClickSignUp() {
+        val email = emailState.value
+        val password = passwordState.value
+        val name = nameState.value
+
+        if(name.isNullOrEmpty()){
+            Toast.makeText(context, "Name không được để trống", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Kiểm tra email có hợp lệ không
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(context, "Email không hợp lệ", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val passwordRegex = Regex("""^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])[a-zA-Z\d!@#$%^&*()-_+=]{8,}$""")
+        fun isPasswordValid(password: String): Boolean {
+            return passwordRegex.matches(password)
+        }
+        // Kiểm tra mật khẩu có hợp lệ không
+        if (!isPasswordValid(password)) {
+            Toast.makeText(context, "Mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            val reTrofitAPI = RetrofitAPI()
+            val body = SignUpRequestModel(
+                email = email,
+                password = password,
+                name = name,
+                phoneNumber = "0338859210"
+            )
+            reTrofitAPI.register(body = body, callback = {signUpCallBack(it)})
+        } catch (e: Exception) {
+            Log.d("Error>>>>", e.message.toString())
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     Column(
@@ -123,7 +162,7 @@ fun RegisterScreen(navController: NavHostController? = null, viewModel: Register
         )
         Button(
             onClick = {
-                viewModel.register(nameState.value, emailState.value, passwordState.value)
+                onClickSignUp()
             },
             modifier = Modifier
                 .fillMaxWidth()

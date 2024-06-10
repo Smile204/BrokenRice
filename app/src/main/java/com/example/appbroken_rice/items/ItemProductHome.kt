@@ -2,6 +2,7 @@ package com.example.appbroken_rice.items
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +33,6 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.example.appbroken_rice.R
-import com.example.appbroken_rice.classes.Product
 import com.example.appbroken_rice.common.roboto_bold
 import com.example.appbroken_rice.common.roboto_regular
 import com.example.appbroken_rice.common.roboto_thinintalic
@@ -41,18 +41,23 @@ import com.example.appbroken_rice.ui.theme.color7E8392
 import com.example.appbroken_rice.ui.theme.color8A8E9B
 import com.example.appbroken_rice.ui.theme.color9796A1
 import com.example.appbroken_rice.ui.theme.colorF6F6F6
+import com.example.myapplication.http_model.Product
 
 
 @Composable
-fun ItemProductHome(product: Product?=null) {
+fun ItemProductHome(product: Product?=null, onClick: () -> Unit = {}) {
+    val firstimage = product?.images?.firstOrNull()
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(product?.image)
+            .data(firstimage ?: R.drawable.bacha)
             .size(Size.ORIGINAL)
             .build()
     )
     Column(
         modifier = Modifier
+            .clickable {
+                onClick()
+            }
             .fillMaxWidth()
 //            .padding(vertical = 16.dp)
             .padding(end = 20.dp)
@@ -97,7 +102,7 @@ fun ItemProductHome(product: Product?=null) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "${product?.vote}", modifier = Modifier.padding(end = 5.dp),
+                        text = "4.5", modifier = Modifier.padding(end = 5.dp),
                         fontFamily = FontFamily(roboto_thinintalic),
                         fontSize = 12.sp,
                         color = Color.Black

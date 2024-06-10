@@ -9,103 +9,103 @@ data class Product(
 )
 
 // Dữ liệu mẫu
-val lstData = listOf(
-    Category(
-        nameCategory = "Chó",
-        products = listOf(
-            Product(
-                id = 1,
-                name = "Product 1",
-                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
-                price = 10f,
-                vote = 4.5f
-            ),
-            Product(
-                id = 2,
-                name = "Product 2",
-                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
-                price = 15f,
-                vote = 4.0f
-            )
-        )
-    ),
-    Category(
-        nameCategory = "Mèo",
-        products = listOf(
-            Product(
-                id = 3,
-                name = "Product 3",
-                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
-                price = 20f,
-                vote = 4.2f
-            ),
-            Product(
-                id = 4,
-                name = "Product 4",
-                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
-                price = 25f,
-                vote = 4.8f
-            )
-        )
-    ),
-    Category(
-        nameCategory = "Heo",
-        products = listOf(
-            Product(
-                id = 3,
-                name = "Product 3",
-                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
-                price = 20f,
-                vote = 4.2f
-            ),
-            Product(
-                id = 4,
-                name = "Product 4",
-                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
-                price = 25f,
-                vote = 4.8f
-            )
-        )
-    ),
-    Category(
-        nameCategory = "Gà",
-        products = listOf(
-            Product(
-                id = 3,
-                name = "Product 3",
-                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
-                price = 20f,
-                vote = 4.2f
-            ),
-            Product(
-                id = 4,
-                name = "Product 4",
-                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
-                price = 25f,
-                vote = 4.8f
-            )
-        )
-    ),
-    Category(
-        nameCategory = "Vịt",
-        products = listOf(
-            Product(
-                id = 3,
-                name = "Product 3",
-                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
-                price = 20f,
-                vote = 4.2f
-            ),
-            Product(
-                id = 4,
-                name = "Product 4",
-                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
-                price = 25f,
-                vote = 4.8f
-            )
-        )
-    )
-)
+//val lstData = listOf(
+//    Category(
+//        nameCategory = "Chó",
+//        products = listOf(
+//            Product(
+//                id = 1,
+//                name = "Product 1",
+//                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
+//                price = 10f,
+//                vote = 4.5f
+//            ),
+//            Product(
+//                id = 2,
+//                name = "Product 2",
+//                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
+//                price = 15f,
+//                vote = 4.0f
+//            )
+//        )
+//    ),
+//    Category(
+//        nameCategory = "Mèo",
+//        products = listOf(
+//            Product(
+//                id = 3,
+//                name = "Product 3",
+//                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
+//                price = 20f,
+//                vote = 4.2f
+//            ),
+//            Product(
+//                id = 4,
+//                name = "Product 4",
+//                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
+//                price = 25f,
+//                vote = 4.8f
+//            )
+//        )
+//    ),
+//    Category(
+//        nameCategory = "Heo",
+//        products = listOf(
+//            Product(
+//                id = 3,
+//                name = "Product 3",
+//                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
+//                price = 20f,
+//                vote = 4.2f
+//            ),
+//            Product(
+//                id = 4,
+//                name = "Product 4",
+//                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
+//                price = 25f,
+//                vote = 4.8f
+//            )
+//        )
+//    ),
+//    Category(
+//        nameCategory = "Gà",
+//        products = listOf(
+//            Product(
+//                id = 3,
+//                name = "Product 3",
+//                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
+//                price = 20f,
+//                vote = 4.2f
+//            ),
+//            Product(
+//                id = 4,
+//                name = "Product 4",
+//                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
+//                price = 25f,
+//                vote = 4.8f
+//            )
+//        )
+//    ),
+//    Category(
+//        nameCategory = "Vịt",
+//        products = listOf(
+//            Product(
+//                id = 3,
+//                name = "Product 3",
+//                image = "https://i.pinimg.com/564x/7b/91/4a/7b914aef9ea19cfd1a0c1f48e718b4d1.jpg",
+//                price = 20f,
+//                vote = 4.2f
+//            ),
+//            Product(
+//                id = 4,
+//                name = "Product 4",
+//                image = "https://i.pinimg.com/564x/37/d0/8d/37d08d70fa5f162bbb3c23e129b68ec7.jpg",
+//                price = 25f,
+//                vote = 4.8f
+//            )
+//        )
+//    )
+//)
 
 // Dữ liệu cart
 val lstcart = listOf(

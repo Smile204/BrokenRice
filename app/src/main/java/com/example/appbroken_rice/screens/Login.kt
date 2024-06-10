@@ -1,5 +1,6 @@
 package com.example.appbroken_rice.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,24 +26,59 @@ import com.example.appbroken_rice.common.InputText
 import com.example.appbroken_rice.common.roboto_bold
 import com.example.appbroken_rice.common.roboto_regular
 import com.example.appbroken_rice.ui.theme.*
+import com.example.myapplication.helper.RetrofitAPI
+import com.example.myapplication.http_model.LoginRequestModel
+import com.example.myapplication.http_model.LoginResponseModel
 
 @Composable
-fun LoginScreen(navController: NavHostController? = null, viewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(navController: NavHostController? = null) {
     val context = LocalContext.current
 
-    val emailState = remember { mutableStateOf("") }
-    val passwordState = remember { mutableStateOf("") }
+    val emailState = remember { mutableStateOf("ngocdayne@gmail.com") }
+    val passwordState = remember { mutableStateOf("Ngoc@123") }
     val showPasswordState = remember { mutableStateOf(false) }
 
-    viewModel.loginResult = { response ->
-        if (response != null) {
-            // Navigate to Home screen
+    fun loginCallBack(response: LoginResponseModel?){
+        if(response!= null){
             navController?.navigate("Home")
+            Toast.makeText(context,"Đăng nhập thành công",Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(context,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show()
         }
     }
 
-    viewModel.loginError = { error ->
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+    fun onLogin() {
+        val email = emailState.value
+        val password = passwordState.value
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(context, "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Kiểm tra email có hợp lệ không
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(context, "Email không hợp lệ", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val passwordRegex = Regex("""^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])[a-zA-Z\d!@#$%^&*()-_+=]{8,}$""")
+        fun isPasswordValid(password: String): Boolean {
+            return passwordRegex.matches(password)
+        }
+        // Kiểm tra mật khẩu có hợp lệ không
+        if (!isPasswordValid(password)) {
+            Toast.makeText(context, "Mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            val reTrofitAPI = RetrofitAPI()
+            val body = LoginRequestModel(email,password)
+            reTrofitAPI.login(body, callback = {loginCallBack(it)})
+        }catch (e : Exception){
+            Log.d(">>>Lỗi: ",e.toString())
+        }
+
     }
 
     Column(
@@ -117,7 +153,7 @@ fun LoginScreen(navController: NavHostController? = null, viewModel: LoginViewMo
         )
         Button(
             onClick = {
-                viewModel.login(emailState.value, passwordState.value)
+                onLogin()
             },
             modifier = Modifier
                 .fillMaxWidth()

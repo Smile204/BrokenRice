@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,13 +20,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appbroken_rice.R
-import com.example.appbroken_rice.classes.lstcart
+import com.example.appbroken_rice.classes.Cart
 import com.example.appbroken_rice.common.roboto_bold
 import com.example.appbroken_rice.common.roboto_regular
 import com.example.appbroken_rice.items.ItemCart
@@ -35,7 +36,27 @@ import com.example.appbroken_rice.ui.theme.AppBroken_riceTheme
 import com.example.appbroken_rice.ui.theme.colorFF7400
 
 @Composable
-fun CartScreen() {
+fun CartScreen(
+    navController: NavController? = null,
+    cartInfo: List<Cart>? = null,
+    updateCart: (Cart) -> Unit = {}
+) {
+    val context = LocalContext.current
+    var tongtien = 0f
+    var quantity = 0
+
+    for(item in cartInfo!!) {
+        if(item.product?.price != null){
+            tongtien += item.product.price * item.quantity
+        }
+    }
+
+    for(item in cartInfo) {
+        if(item.product?.quantity != null){
+            quantity += item.quantity
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -76,15 +97,15 @@ fun CartScreen() {
             }
         }
 
-        val cartdata = lstcart
+//        val cartdata = lstcart
         LazyColumn(
             modifier = Modifier
                 .height(450.dp)
                 .padding(vertical = 20.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(cartdata) { product ->
-                ItemCart(product = product)
+            items(cartInfo.size) { index ->
+                ItemCart(product = cartInfo.get(index), updateCart = updateCart)
             }
         }
         Column(
@@ -100,12 +121,12 @@ fun CartScreen() {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Items: 3", color = Color.White,
+                    text = "Items: ${quantity}", color = Color.White,
                     fontFamily = FontFamily(roboto_regular),
                     fontSize = 10.sp
                 )
                 Text(
-                    text = "36 $", color = Color.White, fontFamily = FontFamily(roboto_regular),
+                    text = "${tongtien} $", color = Color.White, fontFamily = FontFamily(roboto_regular),
                     fontSize = 10.sp
                 )
             }

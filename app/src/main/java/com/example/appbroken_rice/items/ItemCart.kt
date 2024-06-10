@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,7 +39,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.example.appbroken_rice.R
-import com.example.appbroken_rice.classes.Product
+import com.example.appbroken_rice.classes.Cart
 import com.example.appbroken_rice.common.roboto_bold
 import com.example.appbroken_rice.common.roboto_regular
 import com.example.appbroken_rice.ui.theme.AppBroken_riceTheme
@@ -45,13 +50,14 @@ import com.example.appbroken_rice.ui.theme.green
 import com.example.appbroken_rice.ui.theme.navy
 
 @Composable
-fun ItemCart(product: Product? = null) {
+fun ItemCart(product: Cart? = null, updateCart: (Cart) -> Unit = {}) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(product?.image)
+            .data(product?.product?.images?.firstOrNull())
             .size(Size.ORIGINAL)
             .build()
     )
+    var quantity by remember { mutableStateOf(product?.quantity ?: 1) }
     Row(
         modifier = Modifier
             .height(120.dp)
@@ -71,7 +77,7 @@ fun ItemCart(product: Product? = null) {
                 .background(Color.Transparent, shape = RoundedCornerShape(10.dp))
                 .size(100.dp)
                 .clip(RoundedCornerShape(15.dp)),
-            )
+        )
         Column(
             modifier = Modifier
                 .height(120.dp)
@@ -85,7 +91,7 @@ fun ItemCart(product: Product? = null) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "${product?.name}",
+                        text = "${product?.product?.name}",
                         color = navy,
                         fontSize = 18.sp,
                         fontFamily = FontFamily(roboto_bold)
@@ -109,7 +115,7 @@ fun ItemCart(product: Product? = null) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "$ ${product?.price}.00",
+                    text = "$ ${product?.product?.price}.00",
                     fontSize = 10.sp,
                     fontFamily = FontFamily(roboto_bold),
                     color = green
@@ -121,6 +127,9 @@ fun ItemCart(product: Product? = null) {
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
+                            .clickable {
+                                updateCart(Cart(product?.product, -1))
+                            }
                             .size(30.dp) // Kích thước hình tròn
                             .border(BorderStroke(1.dp, colorFF7400), shape = CircleShape) // Viền
                     ) {
@@ -129,11 +138,12 @@ fun ItemCart(product: Product? = null) {
                             color = colorFF7400,
                             fontSize = 20.sp,
                             fontFamily = FontFamily.Default,
-                            textAlign = TextAlign.Center
-                        )
+                            textAlign = TextAlign.Center,
+
+                            )
                     }
                     Text(
-                        text = "01",
+                        text = "${quantity}",
                         fontSize = 18.sp,
                         fontFamily = FontFamily(roboto_bold),
                         color = blue,
@@ -142,6 +152,9 @@ fun ItemCart(product: Product? = null) {
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
+                            .clickable {
+                                updateCart(Cart(product?.product, 1))
+                            }
                             .background(colorFF7400, shape = CircleShape)
                             .size(30.dp) // Kích thước hình tròn
                             .border(BorderStroke(1.dp, colorFF7400), shape = CircleShape) // Viền

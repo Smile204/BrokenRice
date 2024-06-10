@@ -1,29 +1,36 @@
-package com.example.appbroken_rice.helper
+package com.example.myapplication.helper
 
-import com.example.chuyendoicompo.httpmodels.LoginRequestModel
-import com.example.chuyendoicompo.httpmodels.LoginResponseModel
-import com.example.chuyendoicompo.httpmodels.ProductResponseModel
-import com.example.chuyendoicompo.httpmodels.RegisterRequestModel
-import com.example.chuyendoicompo.httpmodels.RegisterResponseModel
+import com.example.myapplication.http_model.LoginRequestModel
+import com.example.myapplication.http_model.LoginResponseModel
+import com.example.myapplication.http_model.ProductDetailResponse
+import com.example.myapplication.http_model.ProductResponseModel
+import com.example.myapplication.http_model.SignUpRequestModel
+import com.example.myapplication.http_model.SignUpResponseModel
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface IRetrofit {
-    @POST("/users/register")
-    fun register(@Body registerRequestModel: RegisterRequestModel)
-            : Call<RegisterResponseModel>
+    //Khai bao cac API
 
-    @POST("/users/login")
-    fun login(@Body body: LoginRequestModel): Call<LoginResponseModel>
+    //Dang ky tai khoan
+    @POST("users/signup")
+    fun signUp(@Body body : SignUpRequestModel): Call<SignUpResponseModel>
 
-    @GET("/products")
-    fun getProduct(): Call<ProductResponseModel>
+    //Dang nhap
+    @POST("users/signin")
+    fun signIn(@Body body : LoginRequestModel): Call<LoginResponseModel>
 
-    //http://localhost:8888/products/?id=66052d25b8c67759afed66d8
-    @GET("/products/")
-    fun getProductById(@Query("id") id: String): Call<ProductResponseModel>
+    //Lay danh sach san pham
+    //http://localhost:8888/categories/get_all_cate
+    @GET("categories/get_all_cate")
+    fun getAllProducts(): Call<ProductResponseModel>
+
+    //Lay chi tiet san pham
+    //http://localhost:8888/products/get_product_detailt/66003d1f31f08d88995f8ab3
+    @GET("products/get_product_detailt/{id}")
+    fun getProductDetail(@Path("id") id : String?): Call<ProductDetailResponse>
 
 }
