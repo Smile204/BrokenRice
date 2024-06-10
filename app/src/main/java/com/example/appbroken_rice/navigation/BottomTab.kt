@@ -20,7 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.appbroken_rice.R
 
 @Composable
-fun BottomTab(){
+fun BottomTab(onProductClick : (String) -> Unit = {}){
     val navController = rememberNavController()
     val select = remember {
         mutableStateOf("home")
@@ -140,7 +140,7 @@ fun BottomTab(){
             modifier = Modifier.padding(padding)
         ) {
             composable("Home") { MainHome(
-                navController = navController
+                onProductClick = onProductClick
             ) }
             composable("Favorite") { FavoriteScreen() }
             composable("Address") { AddressScreen() }

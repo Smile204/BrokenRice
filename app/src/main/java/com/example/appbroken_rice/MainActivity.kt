@@ -1,6 +1,7 @@
 package com.example.appbroken_rice
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -88,7 +89,10 @@ class MainActivity : ComponentActivity() {
             composable("Splash") { SplashScreen(navController) }
             composable("Signup") { RegisterScreen(navController) }
             composable("Login"){ LoginScreen(navController) }
-            composable("Home"){ BottomTab() }
+            composable("Home"){ BottomTab(onProductClick = { productId ->
+                navController.navigate("ProductDetail/$productId")
+                Log.d("------------------->", "PRODUCT ID >>>>>: $productId")
+            }) }
             composable("ProductDetail/{value}",
                 arguments = listOf(navArgument("value") { defaultValue = "0" })){navBackStackEntry ->
                 ProductDetail(navController,

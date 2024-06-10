@@ -37,7 +37,7 @@ import com.example.myapplication.http_model.Product
 import com.example.myapplication.http_model.ProductResponseModel
 
 @Composable
-fun MainHome(navController: NavController ?= null) {
+fun MainHome(onProductClick: (String) -> Unit = {}) {
     val context = LocalContext.current
     var listProduct by remember {
         mutableStateOf(listOf<Category>())
@@ -104,13 +104,13 @@ fun MainHome(navController: NavController ?= null) {
                 .padding(vertical = 20.dp)
                 .fillMaxWidth()
         ) {
-            ProductList(data, navController = navController)
+            ProductList(data, onProductClick = onProductClick)
         }
     }
 }
 
 @Composable
-fun ProductList(cate: List<Category>, navController : NavController? = null) {
+fun ProductList(cate: List<Category>, onProductClick: (String) -> Unit = {}) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 20.dp),
@@ -124,7 +124,9 @@ fun ProductList(cate: List<Category>, navController : NavController? = null) {
             ) {
                 items(category.products) { product ->
                     ItemProductHome(product = product, onClick = {
-                        navController?.navigate("ProductDetail/${product?._id}")
+                        product._id?.let {
+                            onProductClick(it)
+                        }
                     })
                 }
             }
